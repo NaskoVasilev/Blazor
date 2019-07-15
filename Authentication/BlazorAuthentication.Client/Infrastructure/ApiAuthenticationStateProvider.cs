@@ -27,7 +27,7 @@ namespace BlazorAuthentication.Client.Infrastructure
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", savedToken);
             }
 
-            var userInfo = await _httpClient.GetJsonAsync<UserModel>("api/accounts/user");
+            var userInfo = await _httpClient.GetJsonAsync<UserModel>("https://localhost:44380/api/accounts/user");
 
             var identity = userInfo.IsAuthenticated
                 ? new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, userInfo.Username) }, "apiauth")

@@ -25,14 +25,14 @@ namespace BlazorAuthentication.Client.Infrastructure
 
         public async Task<RegisterResult> Register(RegisterInputModel registerModel)
         {
-            var result = await _httpClient.PostJsonAsync<RegisterResult>("api/accounts", registerModel);
+            var result = await _httpClient.PostJsonAsync<RegisterResult>("https://localhost:44380/api/accounts", registerModel);
 
             return result;
         }
 
         public async Task<LoginResult> Login(LoginInputModel loginModel)
         {
-            var result = await _httpClient.PostJsonAsync<LoginResult>("api/Login", loginModel);
+            var result = await _httpClient.PostJsonAsync<LoginResult>("https://localhost:44380/api/Login", loginModel);
 
             if (result.Successful)
             {

@@ -52,6 +52,8 @@ namespace BlazorAuthentication.Server
                   };
               });
 
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -69,6 +71,11 @@ namespace BlazorAuthentication.Server
             app.UseHttpsRedirection();
             app.UseAuthentication();
             //app.UseAuthorization();
+            app.UseCors(options =>
+            {
+                options.WithOrigins("http://localhost:55952");
+                options.AllowAnyHeader();
+            });
             app.UseMvc();
         }
     }
