@@ -21,14 +21,12 @@ namespace BlazorAuthentication.Client.Infrastructure
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var savedToken = await _localStorage.GetItemAsync<string>("authToken");
-
             if (!string.IsNullOrWhiteSpace(savedToken))
             {
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", savedToken);
             }
 
             var userInfo = await _httpClient.GetJsonAsync<UserModel>("https://localhost:44380/api/accounts/user");
-
             var identity = userInfo.IsAuthenticated
                 ? new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, userInfo.Username) }, "apiauth")
                 : new ClaimsIdentity();

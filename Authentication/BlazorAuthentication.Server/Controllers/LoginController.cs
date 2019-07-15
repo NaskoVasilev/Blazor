@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,13 +25,13 @@ namespace BlazorAuthentication.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginInputModel login)
+        public async Task<LoginResult> Login([FromBody] LoginInputModel login)
         {
             var result = await _signInManager.PasswordSignInAsync(login.Username, login.Password, false, false);
 
             if (!result.Succeeded)
             {
-                return BadRequest(new LoginResult { Successful = false, Error = "Username and password are invalid." });
+                return new LoginResult { Successful = false, Error = "Username and password are invalid." };
             }
 
             var claims = new[]
@@ -53,7 +51,7 @@ namespace BlazorAuthentication.Server.Controllers
                 signingCredentials: creds
             );
 
-            return this.Ok(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
+            return new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) };
         }
     }
 }

@@ -9,8 +9,6 @@ namespace BlazorAuthentication.Server.Controllers
 {
     public class AccountsController : ApiController
     {
-        //private static UserModel LoggedOutUser = new UserModel { IsAuthenticated = false };
-
         private readonly UserManager<ApplicationUser> userManager;
 
         public AccountsController(UserManager<ApplicationUser> userManager)
@@ -19,7 +17,7 @@ namespace BlazorAuthentication.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]RegisterInputModel model)
+        public async Task<RegisterResult> Post([FromBody]RegisterInputModel model)
         {
             var newUser = new ApplicationUser { UserName = model.Username, Email = model.Email, FullName = model.FullName };
 
@@ -29,11 +27,11 @@ namespace BlazorAuthentication.Server.Controllers
             {
                 var errors = result.Errors.Select(x => x.Description);
 
-                return BadRequest(new RegisterResult { Successful = false, Errors = errors });
+                return new RegisterResult { Successful = false, Errors = errors };
 
             }
 
-            return Ok(new RegisterResult { Successful = true });
+            return new RegisterResult { Successful = true };
         }
 
         [HttpGet("user")]

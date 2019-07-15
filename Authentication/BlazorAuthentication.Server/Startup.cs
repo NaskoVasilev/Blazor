@@ -37,17 +37,23 @@ namespace BlazorAuthentication.Server
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-              .AddJwtBearer(options =>
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+               .AddJwtBearer(options =>
               {
+                  options.RequireHttpsMetadata = false;
+                  options.SaveToken = true;
                   options.TokenValidationParameters = new TokenValidationParameters
                   {
-                      ValidateIssuer = true,
-                      ValidateAudience = true,
+                      ValidateIssuer = false,
+                      ValidateAudience = false,
                       ValidateLifetime = true,
                       ValidateIssuerSigningKey = true,
-                      ValidIssuer = Configuration["JwtIssuer"],
-                      ValidAudience = Configuration["JwtAudience"],
+                      //ValidIssuer = Configuration["JwtIssuer"],
+                      //ValidAudience = Configuration["JwtAudience"],
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSecurityKey"]))
                   };
               });
@@ -68,14 +74,16 @@ namespace BlazorAuthentication.Server
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
-            //app.UseAuthorization();
             app.UseCors(options =>
             {
-                options.WithOrigins("http://localhost:55952");
-                options.AllowAnyHeader();
+                options
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
             });
+            app.UseAuthentication();
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
