@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAuthentication.Server
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAuthentication.Data", "BlazorAuthentication.Data\BlazorAuthentication.Data.csproj", "{303BE6B3-E5E3-4F1F-83AF-1352B8E23BBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAuthentication.Shared", "BlazorAuthentication.Shared\BlazorAuthentication.Shared.csproj", "{78F844DB-48F9-40F7-86BB-E3947A4B7AA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{303BE6B3-E5E3-4F1F-83AF-1352B8E23BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{303BE6B3-E5E3-4F1F-83AF-1352B8E23BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{303BE6B3-E5E3-4F1F-83AF-1352B8E23BBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78F844DB-48F9-40F7-86BB-E3947A4B7AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F844DB-48F9-40F7-86BB-E3947A4B7AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78F844DB-48F9-40F7-86BB-E3947A4B7AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78F844DB-48F9-40F7-86BB-E3947A4B7AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
