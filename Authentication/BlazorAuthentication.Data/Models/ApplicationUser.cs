@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace BlazorAuthentication.Data.Models
 {
-    class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
+        public string FullName { get; set; }
     }
 }
