@@ -17,8 +17,7 @@ namespace BlazorAuthentication.Server.Controllers
         private readonly IConfiguration _configuration;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LoginController(IConfiguration configuration,
-                               SignInManager<ApplicationUser> signInManager)
+        public LoginController(IConfiguration configuration, SignInManager<ApplicationUser> signInManager)
         {
             _configuration = configuration;
             _signInManager = signInManager;
