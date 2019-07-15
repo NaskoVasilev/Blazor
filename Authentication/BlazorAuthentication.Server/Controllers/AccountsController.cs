@@ -2,8 +2,6 @@
 using BlazorAuthentication.Shared.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,7 +21,7 @@ namespace BlazorAuthentication.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]RegisterInputModel model)
         {
-            var newUser = new IdentityUser { UserName = model.Email, Email = model.Email };
+            var newUser = new ApplicationUser { UserName = model.Username, Email = model.Email, FullName = model.FullName };
 
             var result = await userManager.CreateAsync(newUser, model.Password);
 
@@ -45,14 +43,14 @@ namespace BlazorAuthentication.Server.Controllers
             {
                 var userModel = new UserModel
                 {
-                    Email = User.Identity.Name,
+                    Username = User.Identity.Name,
                     IsAuthenticated = true
                 };
 
                 return Ok(userModel);
             }
 
-            return Ok(LoggedOutUser);
+            return Ok(new UserModel { IsAuthenticated = false });
         }
     }
 }

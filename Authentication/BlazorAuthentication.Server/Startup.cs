@@ -1,5 +1,6 @@
 ﻿using BlazorAuthentication.Data;
 using BlazorAuthentication.Data.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace BlazorAuthentication.Server
 {
@@ -34,6 +37,21 @@ namespace BlazorAuthentication.Server
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+              .AddJwtBearer(options =>
+              {
+                  options.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuer = true,
+                      ValidateAudience = true,
+                      ValidateLifetime = true,
+                      ValidateIssuerSigningKey = true,
+                      ValidIssuer = Configuration["JwtIssuer"],
+                      ValidAudience = Configuration["JwtAudience"],
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSecurityKey"]))
+                  };
+              });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -49,6 +67,8 @@ namespace BlazorAuthentication.Server
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+            //app.UseAuthorization();
             app.UseMvc();
         }
     }

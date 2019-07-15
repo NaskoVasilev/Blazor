@@ -1,4 +1,4 @@
-﻿namespace BlazorAuthentication.Shared.Account
+﻿namespace BlazorAuthentication.Shared.Login
 {
     public class LoginInputModel
     {

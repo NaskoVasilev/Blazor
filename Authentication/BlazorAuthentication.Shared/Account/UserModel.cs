@@ -4,7 +4,10 @@ using System.Text;
 
 namespace BlazorAuthentication.Shared.Account
 {
-    class UserModel
+    public class UserModel
     {
+        public string Username { get; set; }
+
+        public bool IsAuthenticated { get; set; }
     }
 }
