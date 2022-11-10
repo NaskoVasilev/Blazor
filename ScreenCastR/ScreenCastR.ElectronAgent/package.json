@@ -17,7 +17,7 @@
   "author": "Atanas Vasilev",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^6.0.0"
+    "electron": "^18.3.7"
   },
   "dependencies": {
     "@microsoft/signalr": "^3.0.0-preview8.19405.7"
